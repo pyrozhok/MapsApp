@@ -1,0 +1,22 @@
+.wrapper {
+  padding: 0 0.5rem;
+  display: flex;
+  justify-content: center;
+}
+
+.container {
+  display: flex;
+  padding: 0 0.5rem;
+  flex-direction: row;
+}
+
+.left-side {
+  display: flex;
+  flex-direction: column;
+  margin-right: 2rem;
+}
+.right-side {
+  display: flex;
+  flex: auto;
+  flex-direction: column;
+}

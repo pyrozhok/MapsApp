@@ -1,0 +1,8 @@
+.list {
+  position: relative;
+  width: 200px;
+  list-style-type: none;
+  padding: 10px;
+  margin: 0 auto;
+  background-color: #f1f1f1;
+}

@@ -1,0 +1,17 @@
+.listitem {
+  display: flex;
+  justify-content: center;
+  height: 25px;
+  font-size: 14px;
+  line-height: 25px;
+
+  color: #f1f1f1;
+  background-color: #929292;
+  border: 1px solid #f1f1f1;
+
+  cursor: move;
+}
+
+.listitem-over {
+  background-color: #444;
+}
