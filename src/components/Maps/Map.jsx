@@ -11,7 +11,8 @@ function Map(props) {
   const mapRef = useRef(null);
 
   const [path, setPath] = useState();
-  const [isVisibleInfo, setIsVisibleInfo] = useState();
+  const [activeMarker, setActiveMarker] = useState(null);
+  const [isVisibleInfoWindow, setIsVisibleInfoWindow] = useState(false);
 
   useEffect(() => {
     const coordinates = [];
@@ -26,11 +27,11 @@ function Map(props) {
     mapRef.current = map;
   };
 
-  const onShowInfo = (markerId) => {
-    setIsVisibleInfo(markerId);
+  const handleOnMarkerClick = (markerId) => {
+    setActiveMarker(markerId);
+    setIsVisibleInfoWindow(true);
   };
 
-  // https://stackoverflow.com/questions/68425883/how-can-i-get-the-current-map-center-coordinates-using-getcenter-in-react-googl
   const handleCenterChanged = () => {
     if (!mapRef.current) return;
     const newCenter = mapRef.current.getCenter().toJSON();
@@ -39,8 +40,14 @@ function Map(props) {
 
   const handleOnMarkerDragged = (event, index) => {
     const { latLng } = event;
+
     props.markers[index].point = { lat: latLng.lat(), lng: latLng.lng() };
     props.handleDataChanged(props.markers);
+  };
+
+  const handleInfoWindowClose = () => {
+    setActiveMarker(null);
+    setIsVisibleInfoWindow(false);
   };
 
   const options = {
@@ -69,18 +76,22 @@ function Map(props) {
       >
         <>
           {props.markers &&
-            props.markers.map((position, index) => (
+            props.markers.map((marker, index) => (
               <Marker
-                key={position.id}
+                key={marker.id}
                 onDrag={(event) => handleOnMarkerDragged(event, index)}
-                position={position.point}
+                position={marker.point}
                 draggable
-                onClick={() => onShowInfo(position.id)}
-                label={position.title}
+                onClick={() => handleOnMarkerClick(marker.id)}
+                label={marker.title}
               >
-                {isVisibleInfo === position.id && (
-                  <InfoWindow key={`infowindow-${position.title}`} position={position.point}>
-                    <div>{position.title}</div>
+                {isVisibleInfoWindow === true && activeMarker === marker.id && (
+                  <InfoWindow
+                    key={`infowindow-${marker.title}`}
+                    position={marker.point}
+                    onCloseClick={handleInfoWindowClose}
+                  >
+                    <div>{marker.title}</div>
                   </InfoWindow>
                 )}
               </Marker>
