@@ -1,48 +1,15 @@
 import "./App.css";
-import React, { useState, useReducer } from "react";
-import { v4 as uuidv4 } from "uuid";
+import React from "react";
+import { observer } from "mobx-react-lite";
 import StateView from "./components/StateView";
 import List from "./components/List";
 import Map from "./components/Maps/Map";
+import { toJS } from "mobx";
 
 function App(props) {
-  const [index, setIndex] = useState(0);
-
-  // https://stackoverflow.com/questions/53215285/how-can-i-force-a-component-to-re-render-with-hooks-in-react
-  const forceUpdate = useReducer(() => ({}))[1];
-  const [markers, setMarkers] = useState([
-    {
-      id: uuidv4(),
-      title: "Point 1",
-      sortIndex: index,
-      point: {
-        lat: 55.91764854980106,
-        lng: 92.72974357848639,
-      },
-    },
-  ]);
-
-  const [center, setCenter] = useState({
-    lat: 55.917839651090226,
-    lng: 92.72993988700969,
-  });
-
-  const zoom = 15;
-
   function onKeyUpValue(event) {
     if (event.charCode === 13 && event.target.value.length > 0) {
-      let sortIndex = index;
-      setMarkers([
-        ...markers,
-        {
-          id: uuidv4(),
-          title: event.target.value,
-          sortIndex: sortIndex + 1,
-          point: { lat: center.lat, lng: center.lng },
-        },
-      ]);
-
-      setIndex(index + 1);
+      props.store.addMarker(event.target.value);
 
       //Clear input
       event.target.value = "";
@@ -50,29 +17,26 @@ function App(props) {
   }
 
   function handleDataChanged(data) {
-    console.log(data);
-    setMarkers(data);
-    forceUpdate();
+    props.store.updateMarkers(data);
   }
 
   function handleCenterChanged(center) {
-    console.log(center);
-    setCenter(center);
+    props.store.updateCenter(center);
   }
 
   return (
     <div className='wrapper'>
-      <StateView state={markers} />
+      <StateView state={props.store.markers} />
       <div className='container'>
         <div className='left-side'>
-          <input onKeyPress={onKeyUpValue} />
-          <List data={markers} handleDataChanged={handleDataChanged} />
+          <input onKeyPress={onKeyUpValue} placeholder='Введите название точки' />
+          <List data={toJS(props.store.markers)} handleDataChanged={handleDataChanged} />
         </div>
         <div className='right-side'>
           <Map
-            center={center}
-            zoom={zoom}
-            markers={markers}
+            center={props.store.center}
+            zoom={props.store.zoom}
+            markers={toJS(props.store.markers)}
             updateCenter={handleCenterChanged}
             handleDataChanged={handleDataChanged}
           />
@@ -82,4 +46,4 @@ function App(props) {
   );
 }
 
-export default App;
+export default observer(App);

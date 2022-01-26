@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { observer } from "mobx-react-lite";
 import ListItem from "./ListItem";
 import Delete from "./Delete";
 import "./List.css";
@@ -43,19 +44,19 @@ function List(props) {
     props.handleDataChanged(items);
   }
 
-  function dragStart(e) {
+  function dragStart(event) {
     // Update our state with the item that is being dragged
-    setBeingDragged(Number(e.target.dataset.id));
-    e.dataTransfer.effectAllowed = "move";
+    setBeingDragged(Number(event.target.dataset.id));
+    event.dataTransfer.effectAllowed = "move";
   }
 
-  function dragOver(e) {
-    e.preventDefault();
+  function dragOver(event) {
+    event.preventDefault();
     // ignore when dragging over the list container
-    if (e.target.className === "list") return;
+    if (event.target.className === "list") return;
 
     let from = beingDragged;
-    let to = Number(e.target.dataset.id);
+    let to = Number(event.target.dataset.id);
     setDraggedOverId(to);
 
     // reorder the array with the current hover position
@@ -77,4 +78,4 @@ function List(props) {
   );
 }
 
-export default List;
+export default observer(List);

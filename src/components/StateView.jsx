@@ -1,4 +1,5 @@
 import React from "react";
+import { observer } from "mobx-react-lite";
 
 function StateView(props) {
   return (
@@ -9,4 +10,4 @@ function StateView(props) {
   );
 }
 
-export default StateView;
+export default observer(StateView);

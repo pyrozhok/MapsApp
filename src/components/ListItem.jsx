@@ -1,5 +1,6 @@
 import React from "react";
 import "./ListItem.css";
+import { observer } from "mobx-react-lite";
 
 function ListItem(props) {
   const newClassName = props.className === "" ? "listitem" : `listitem ${props.className}`;
@@ -18,4 +19,4 @@ function ListItem(props) {
   );
 }
 
-export default ListItem;
+export default observer(ListItem);

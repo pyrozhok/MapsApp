@@ -1,13 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
+import { observer } from "mobx-react-lite";
 import { GoogleMap, LoadScript, Marker, Polyline, InfoWindow } from "@react-google-maps/api";
 
 const containerStyle = {
-  width: "400px",
+  width: "500px",
   height: "400px",
 };
 
 function Map(props) {
-  console.log(props.markers);
   const mapRef = useRef(null);
 
   const [path, setPath] = useState();
@@ -92,4 +92,4 @@ function Map(props) {
   );
 }
 
-export default Map;
+export default observer(Map);
