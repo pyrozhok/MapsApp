@@ -6,7 +6,6 @@
     "@react-google-maps/api": "^2.7.0",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^12.1.2",
-    "@testing-library/user-event": "^13.5.0",
     "google-map-react": "^2.1.10",
     "mobx": "^6.3.13",
     "mobx-react-lite": "^3.2.3",
@@ -20,7 +19,8 @@
     "start": "react-scripts start",
     "build": "react-scripts build",
     "test": "react-scripts test",
-    "eject": "react-scripts eject"
+    "eject": "react-scripts eject",
+    "cypress": "cypress open"
   },
   "eslintConfig": {
     "extends": [
@@ -41,6 +41,11 @@
     ]
   },
   "devDependencies": {
+    "@testing-library/dom": "^8.11.3",
+    "@testing-library/user-event": "^13.5.0",
+    "@wojtekmaj/enzyme-adapter-react-17": "^0.6.6",
+    "cypress": "^9.4.1",
+    "enzyme": "^3.11.0",
     "jest-watch-typeahead": "^0.6.5"
   }
 }
