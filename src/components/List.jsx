@@ -9,7 +9,6 @@ const List = ({ items, dragStart, dragOver, dragEnd, handleDelete }) => {
       {items.map((item, index) => (
         <li key={index} onDragOver={e => dragOver(e, index)}>
           <div
-            style={{ display: "flex", justifyContent: "space-around" }}
             className="drag"
             draggable
             onDragStart={e => dragStart(e, index)}

@@ -4,5 +4,10 @@
   list-style-type: none;
   padding: 10px;
   margin: 0 auto;
-  background-color: #f1f1f1;
+  /* background-color: #f1f1f1; */
+}
+.drag {
+  display: flex;
+  justify-content: space-around;
+  cursor: move;
 }
