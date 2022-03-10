@@ -1,11 +1,13 @@
 import React, { useState, useEffect, useRef } from "react";
+import "./Map.css";
 import { observer } from "mobx-react-lite";
-import { GoogleMap, LoadScript, Marker, Polyline, InfoWindow } from "@react-google-maps/api";
-
-const containerStyle = {
-  width: "500px",
-  height: "400px",
-};
+import {
+  GoogleMap,
+  LoadScript,
+  Marker,
+  Polyline,
+  InfoWindow,
+} from "@react-google-maps/api";
 
 function Map(props) {
   const mapRef = useRef(null);
@@ -23,11 +25,11 @@ function Map(props) {
     setPath(coordinates);
   }, [props.markes, props.handleDataChanged]);
 
-  const handleOnMapLoad = (map) => {
+  const handleOnMapLoad = map => {
     mapRef.current = map;
   };
 
-  const handleOnMarkerClick = (markerId) => {
+  const handleOnMarkerClick = markerId => {
     setActiveMarker(markerId);
     setIsVisibleInfoWindow(true);
   };
@@ -66,9 +68,9 @@ function Map(props) {
   };
 
   return (
-    <LoadScript googleMapsApiKey='AIzaSyA6v4BqKCU23daFeE71QUuRvOQYyWe7qxo'>
+    <LoadScript googleMapsApiKey="AIzaSyA6v4BqKCU23daFeE71QUuRvOQYyWe7qxo">
       <GoogleMap
-        mapContainerStyle={containerStyle}
+        mapContainerClassName="map"
         center={props.center}
         zoom={props.zoom}
         onDragEnd={handleCenterChanged}
@@ -79,7 +81,7 @@ function Map(props) {
             props.markers.map((marker, index) => (
               <Marker
                 key={marker.id}
-                onDrag={(event) => handleOnMarkerDragged(event, index)}
+                onDrag={event => handleOnMarkerDragged(event, index)}
                 position={marker.point}
                 draggable
                 onClick={() => handleOnMarkerClick(marker.id)}
