@@ -76,32 +76,26 @@ function App(props) {
   };
 
   return (
-    <div className="wrapper">
+    <div className="App">
       {/* <StateView state={props.store.markers} /> */}
-      <div className="container">
-        <div className="left-side">
-          <input
-            onKeyPress={onKeyUpValue}
-            placeholder="Введите название точки"
-          />
-          <List
-            items={toJS(props.store.markers)}
-            dragStart={onDragStart}
-            dragOver={onDragOver}
-            dragEnd={onDragEnd}
-            handleDelete={handleDelete}
-          />
-        </div>
-        <div className="right-side">
-          <Map
-            center={props.store.center}
-            zoom={props.store.zoom}
-            markers={toJS(props.store.markers)}
-            updateCenter={handleCenterChanged}
-            handleDataChanged={handleDataChanged}
-          />
-        </div>
+
+      <div className="control-panel">
+        <input onKeyPress={onKeyUpValue} placeholder="Введите название точки" />
+        <List
+          items={toJS(props.store.markers)}
+          dragStart={onDragStart}
+          dragOver={onDragOver}
+          dragEnd={onDragEnd}
+          handleDelete={handleDelete}
+        />
       </div>
+      <Map
+        center={props.store.center}
+        zoom={props.store.zoom}
+        markers={toJS(props.store.markers)}
+        updateCenter={handleCenterChanged}
+        handleDataChanged={handleDataChanged}
+      />
     </div>
   );
 }
