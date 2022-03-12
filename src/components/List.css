@@ -11,3 +11,14 @@
   justify-content: space-around;
   cursor: move;
 }
+.listitem-text {
+  text-align: left;
+  margin: 0 2em;
+  display: flex;
+  align-items: center;
+  line-height: 2em;
+  width: calc(100% - 4em);
+  box-sizing: border-box;
+  word-break: break-all;
+  word-break: break-word;
+}

@@ -15,7 +15,7 @@ const List = ({ items, dragStart, dragOver, dragEnd, handleDelete }) => {
             onDragEnd={dragEnd}
             data-testid="listitem"
           >
-            <span className="listitem__text">{item.title}</span>
+            <span className="listitem-text">{item.title}</span>
             <Delete onClick={() => handleDelete(item)} />
           </div>
         </li>
