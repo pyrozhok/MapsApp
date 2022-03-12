@@ -81,6 +81,8 @@ function App(props) {
 
       <div className="control-panel">
         <input onKeyPress={onKeyUpValue} placeholder="Введите название точки" />
+
+        <h3>Список точек</h3>
         <List
           items={toJS(props.store.markers)}
           dragStart={onDragStart}
